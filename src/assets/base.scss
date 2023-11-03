@@ -1,0 +1,274 @@
+/* css 初始化 */
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+font,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'PingFang SC-Regular', 'PingFang SC';
+  font-size: 100%;
+  line-height: 100%;
+  vertical-align: baseline;
+  background: transparent;
+  border: 0;
+  outline: 0;
+}
+
+* {
+  ::-webkit-scrollbar {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    @include background('main_active_color_7');
+
+    &:hover {
+      @include background('main_active_color_50');
+
+      cursor: pointer;
+    }
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 50px;
+  }
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  font-family: 'PingFang SC-Regular', 'PingFang SC';
+  font-size: 13px;
+  text-size-adjust: 100%;
+  @include background-color('main_white_color');
+}
+
+fieldset,
+img,
+input,
+button {
+  padding: 0;
+  margin: 0;
+  border: none;
+  outline-style: none;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+input {
+  padding: 0;
+  font-family: 'PingFang SC-Regular', 'PingFang SC';
+}
+
+select,
+input {
+  vertical-align: middle;
+}
+
+select,
+input,
+textarea {
+  box-sizing: border-box;
+  margin: 0;
+  font-size: 13px;
+}
+
+select::placeholder,
+input::placeholder,
+textarea::placeholder {
+  font-family: 'PingFang SC-Regular', 'PingFang SC';
+  font-size: 13px;
+  font-weight: 400;
+
+  @include color('main_text_color_30');
+}
+
+/* 禁止手动修改大小 */
+
+textarea {
+  resize: none;
+}
+
+/* 去掉图片底部默认空白缝隙 */
+
+img {
+  vertical-align: middle;
+  user-select: none;
+  border: 0;
+
+  /* 解决IE图片缩放失真 */
+  interpolation-mode: bicubic;
+}
+
+/* 合并外连线 */
+
+table {
+  border-collapse: collapse;
+}
+
+/* 清除浮动 */
+
+// .clearfix::before,
+// .clearfix::after {
+//   content: '';
+//   display: table;
+// }
+
+// .clearfix::after {
+//   clear: both;
+// }
+
+// .clearfix {
+//   *zoom: 1;
+// }
+
+a {
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 100%;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+s,
+i,
+em {
+  font-style: normal;
+  text-decoration: none;
+}
+
+/* 连续英文、数字换行 */
+.wordwrap {
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+/* 单行文字超出显示省略号 */
+.omit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ellipsis {
+  display: -webkit-box;
+  overflow: hidden;
+  box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+/* 解决在IOS上input框无法输入内容的问题 */
+
+input,
+textarea {
+  user-select: auto;
+}
+
+// 文字
+// https://iccos.blob.core.windows.net/static/fonts/RobotoRegular.ttf
+// @font-face {
+//   font-family: 'PingFang SC-Regular';
+//   src: url('#{$ossUrl}/fonts/RobotoRegular.ttf');
+// }
+
+// // 数字
+// // https://iccos.blob.core.windows.net/static/fonts/BebasNeue.otf
+// @font-face {
+//   font-family: 'Bebas Neue-Regular';
+//   src: url('#{$ossUrl}/fonts/BebasNeue.otf');
+// }
+
+.iconfont {
+  font-size: 14px;
+}
+
+// safari补充
+:-webkit-autofill { box-shadow: inset 0 0 0 2000px #fff; }
+:autofill { box-shadow: inset 0 0 0 2000px #fff; }
+input::-webkit-textfield-decoration-container {display: flex;align-items: center; height: 100%; content: none;}
+::-webkit-contacts-auto-fill-button, ::-webkit-credentials-auto-fill-button {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}

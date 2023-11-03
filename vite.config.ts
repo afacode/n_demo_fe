@@ -10,6 +10,13 @@ export default defineConfig({
     vue(),
     vueJsx(),
   ],
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: '@import "@/assets/themes/mixin.scss";'
+      }
+    }
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

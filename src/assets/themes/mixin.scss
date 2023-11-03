@@ -1,0 +1,207 @@
+@import './light';
+
+//定义映射集合
+$themes: (
+  light: $light,
+);
+
+// 3.定义混合指令, 切换主题,并将主题中到所有规则添加到theme-map中
+@mixin themify() {
+  @each $theme-name, $map in $themes {
+    .theme-#{$theme-name} & {
+      $theme-map: () !global;
+
+      @each $key, $value in $map {
+        $theme-map: map-merge(
+          $theme-map,
+          (
+            $key: $value,
+          )
+        ) !global;
+      }
+
+      @content;
+
+      $theme-map: null !global;
+    }
+  }
+}
+
+@function themed($key) {
+  @return map-get($theme-map, $key);
+}
+
+// 4. 调用混合指令themify() ,定义规则,此处到规则会替换@content
+// @include themify() {
+//   background: themed('main_bg_color');
+// }
+
+// 如果有多个阴影颜色，请用themify
+// @include themify() {
+//   box-shadow:  0px 10px 50px 7px themed('main_active_color_7'), 0 0 0 1px themed('main_active_color_7') inset;
+// }
+
+// 颜色
+@mixin color($color) {
+  @include themify {
+    color: themed($color);
+  }
+}
+
+// 背景颜色
+@mixin background($color) {
+  @include themify {
+    background: themed($color);
+  }
+}
+
+// 背景颜色
+@mixin background-color($color) {
+  @include themify {
+    background-color: themed($color);
+  }
+}
+
+// 边框颜色
+@mixin border-color($color) {
+  @include themify {
+    border-color: themed($color);
+  }
+}
+
+// 边框颜色
+@mixin border($color, $content: 1px solid) {
+  @include themify {
+    border: $content themed($color);
+  }
+}
+
+// 边框颜色-top
+@mixin border-top($color, $content: 1px solid) {
+  @include themify {
+    border-top: $content themed($color);
+  }
+}
+
+// 边框颜色-right
+@mixin border-right($color, $content: 1px solid) {
+  @include themify {
+    border-right: $content themed($color);
+  }
+}
+
+// 边框颜色-bottom
+@mixin border-bottom($color, $content: 1px solid) {
+  @include themify {
+    border-bottom: $content themed($color);
+  }
+}
+
+// 边框颜色-left
+@mixin border-left($color, $content: 1px solid) {
+  @include themify {
+    border-left: $content themed($color);
+  }
+}
+
+// 边框颜色-top
+@mixin border-top-color($color) {
+  @include themify {
+    border-top-color: themed($color);
+  }
+}
+
+// 边框颜色-right
+@mixin border-right-color($color) {
+  @include themify {
+    border-right-color: themed($color);
+  }
+}
+
+// 边框颜色-bottom
+@mixin border-bottom-color($color) {
+  @include themify {
+    border-bottom-color: themed($color);
+  }
+}
+
+// 边框颜色-left
+@mixin border-left-color($color) {
+  @include themify {
+    border-left-color: themed($color);
+  }
+}
+
+// 阴影颜色
+@mixin box-shadow($text, $color) {
+  @include themify {
+    box-shadow: $text themed($color);
+  }
+}
+
+@mixin linear-gradient($cssName, $gradient) {
+  @include themify {
+    #{$cssName}: themed($gradient);
+  }
+}
+
+// 颜色
+@mixin fill($color) {
+  @include themify {
+    fill: themed($color);
+  }
+}
+
+// 颜色
+@mixin stroke($color) {
+  @include themify {
+    stroke: themed($color);
+  }
+}
+
+@mixin omit {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin ellipsis($line) {
+  display: -webkit-box;
+  overflow: hidden;
+  word-wrap: break-word;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line;
+}
+
+@mixin skeleton {
+  z-index: 10;
+  color: transparent !important;
+  pointer-events: none;
+  background-color: transparent !important;
+  background-repeat: repeat-y !important;
+  background-position: 100% 50%;
+  background-clip: content-box !important;
+  background-origin: content-box !important;
+  background-size: 500% 100% !important;
+  box-shadow: none !important;
+  animation: skeleton-loading 1200ms ease infinite;
+
+  @include themify {
+    background-image: linear-gradient(
+      90deg,
+      themed('main_active_color_7') 15%,
+      themed('main_active_color_15') 37%,
+      themed('main_active_color_7') 85%
+    ) !important;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0 50%;
+  }
+}
