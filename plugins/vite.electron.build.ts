@@ -11,7 +11,7 @@ export const ElectronBuildPlugin = ():Plugin => {
             buildBackground()
 
             const packageJson = JSON.parse(fs.readFileSync('package.json', 'utf-8'))
-            packageJson.main = 'packground.js'
+            packageJson.main = 'background.js'
 
             fs.writeFileSync('dist/package.json', JSON.stringify(packageJson, null, 4))
 
@@ -24,18 +24,20 @@ export const ElectronBuildPlugin = ():Plugin => {
                         // output: "electron_dist"
                         app: path.resolve(process.cwd(), 'dist'),
                     },
-                    files: [
-                        "dist/**/*",
-                        "electron/**/*"
-                    ],
+                    // files: [
+                    //     // "dist/**/*",
+                    //     // "electron/**/*"
+                    // ],
                     asar: true, //压缩包
                     appId:'top.afacode',
                     productName: 'n_demo_fe',
                     nsis: {
                         oneClick: false, // 是否启用一键安装，此处设置为false，表示禁用一键安装；
                         allowToChangeInstallationDirectory: true, // 允许用户在安装过程中选择安装目录；
-
                     },
+                    win: {
+                        artifactName: '${productName}-${platform}-${arch}-${version}.${ext}',
+                    }
                 }
             })
         },
@@ -44,8 +46,8 @@ export const ElectronBuildPlugin = ():Plugin => {
 
 function buildBackground() {
     require('esbuild').buildSync({
-        entryPoints: ['src/packground.ts'],
-        outfile: 'dist/packground.js',
+        entryPoints: ['src/background.ts'],
+        outfile: 'dist/background.js',
         bundle: true,
         platform: 'node',
         external: ['electron']

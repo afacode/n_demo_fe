@@ -19,8 +19,8 @@ function createWindow() {
   if (process.argv[2]) {
     win.loadURL(process.argv[2])
   } else {
-    win.loadFile('index.html')
-    win.loadFile(`file://${path.join(__dirname, "./dist/index.html")}`)
+    win.loadFile('./dist/index.html')
+    // win.loadFile(`file://${path.join(__dirname, "./dist/index.html")}`)
   }
 
   // 打开开发者工具

@@ -12,11 +12,11 @@ export const ElectronDevPlugin = () :Plugin => {
                 const addressInfo = server.httpServer?.address() as AddressInfo
                 const IP = `http://localhost:${addressInfo.port}`
                 console.log(IP)
-                let ElectronProcess = spawn(require('electron'), ['dist/packground.js', IP])
-                fs.watchFile('src/packground.ts', () => {
+                let ElectronProcess = spawn(require('electron'), ['dist/background.js', IP])
+                fs.watchFile('src/background.ts', () => {
                     ElectronProcess.kill()
                     buildBackground()
-                    ElectronProcess = spawn(require('electron'), ['dist/packground.js', IP])
+                    ElectronProcess = spawn(require('electron'), ['dist/background.js', IP])
                 })
                 ElectronProcess.stderr.on('data', (data) => {
                     console.log('logger----', data.toString())
@@ -28,8 +28,8 @@ export const ElectronDevPlugin = () :Plugin => {
 
 function buildBackground() {
     require('esbuild').buildSync({
-        entryPoints: ['src/packground.ts'],
-        outfile: 'dist/packground.js',
+        entryPoints: ['src/background.ts'],
+        outfile: 'dist/background.js',
         bundle: true,
         platform: 'node',
         external: ['electron']
