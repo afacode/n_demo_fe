@@ -1,6 +1,6 @@
 # n_demo_fe
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue 3 Vite Electron
 
 ## Recommended IDE Setup
 
@@ -49,4 +49,12 @@ pnpm test:unit
 
 ```sh
 pnpm lint
+```
+
+### 一些配置
+```
+concurrently：用于同时运行多个命令；
+cross-env：用于设置环境变量；
+electron-builder：用于构建和打包 Electron 应用程序；
+wait-on：用于满足指定条件后再执行命令；
 ```
