@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ElLoading, ElMessage,ElMessageBox } from 'element-plus';
 import { getLanguage } from '@/plugins/utils/utils';
-import storage, { StorageName } from '../utils/storage';
+import storage from '../utils/storage';
 import { AXIOS_CONFIG, NO_TOKEN_URL, QUERY_CONFIG, LANGUAGE_NAME } from './config';
 import * as types from './types.d';
 import type { Action } from 'element-plus'

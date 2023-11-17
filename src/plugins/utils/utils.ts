@@ -1,6 +1,6 @@
 import storage from './storage';
 import { ElMessage } from 'element-plus';
-// import ClipboardJS from 'clipboard';
+import ClipboardJS from 'clipboard';
 import en from 'element-plus/dist/locale/en.mjs';
 import zh from 'element-plus/dist/locale/zh-cn.mjs';
 

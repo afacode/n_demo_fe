@@ -1,4 +1,4 @@
-import { ServerConfig, ServerQueryConfig, NoTokenUrl, LanguageName } from './types';
+import type { ServerConfig, ServerQueryConfig, NoTokenUrl, LanguageName } from './types';
 
 export const AXIOS_CONFIG: ServerConfig = {
   baseURL: '/',

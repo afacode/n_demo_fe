@@ -11,7 +11,8 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
-    ElectronDevPlugin()
+    ElectronDevPlugin(),
+    ElectronBuildPlugin()
   ],
   base:  './',
   css: {

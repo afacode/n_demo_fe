@@ -1,4 +1,3 @@
-
 <template>
   <div class="login-box">
     <h1>登录</h1>
@@ -19,22 +18,22 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import type { FormInstance } from 'element-plus'
+// import type { FormInstance } from 'element-plus'
 const formLabelAlign = reactive({
   username: '',
   password: '',
 })
-const submitForm = (formEl: FormInstance | undefined) => {
-  if (!formEl) return
-  formEl.validate(valid => {
-    if (valid) {
-      console.log('submit!')
-      return false
-    } else {
-      console.log('error submit!')
-      return false
-    }
-  })
+const submitForm = () => {
+  // if (!formEl) return
+  // formEl.validate(valid => {
+  //   if (valid) {
+  //     console.log('submit!')
+  //     return false
+  //   } else {
+  //     console.log('error submit!')
+  //     return false
+  //   }
+  // })
 }
 </script>
 <style lang="scss" scoped>
