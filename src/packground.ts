@@ -1,4 +1,6 @@
-const { app, BrowserWindow } = require('electron')
+// main process
+
+import { app, BrowserWindow } from 'electron'
 
 function createWindow() {
   // 创建浏览器窗口
@@ -6,11 +8,18 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true, // 渲染进程可使用node api
+      contextIsolation: false, // 关闭渲染进程的沙箱
+      webSecurity: false // 关闭跨域检测
     }
   })
+
   // 加载 Vue 应用的 index.html 文件
-  win.loadURL('http://localhost:5173/')
+  if (process.argv[2]) {
+    win.loadURL(process.argv[2])
+  } else {
+    win.loadFile('dist/index.html')
+  }
 
   // 打开开发者工具
   win.webContents.openDevTools()
