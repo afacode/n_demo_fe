@@ -32,6 +32,7 @@ function buildBackground() {
         outfile: 'dist/background.js',
         bundle: true,
         platform: 'node',
+        target: 'node12',
         external: ['electron']
     })
 }

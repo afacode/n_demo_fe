@@ -23,7 +23,8 @@ export default defineConfig({
     vueJsx(),
     ...pluginsList,
   ],
-  base:  IS_DEV ? '/' : './',
+  base:  './',
+  // base:  IS_DEV ? '/' : './',
   css: {
     preprocessorOptions: {
       scss: {
