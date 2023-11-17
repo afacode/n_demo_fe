@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev:web": "vite",
+    "dev": "cross-env IS_APP=true vite",
+    "build": "cross-env IS_DEV=false vite build",
     "build:lint": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",

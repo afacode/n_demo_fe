@@ -1,6 +1,7 @@
 // main process
 
 import { app, BrowserWindow } from 'electron'
+import path from 'path'
 
 function createWindow() {
   // 创建浏览器窗口
@@ -18,11 +19,12 @@ function createWindow() {
   if (process.argv[2]) {
     win.loadURL(process.argv[2])
   } else {
-    win.loadFile('dist/index.html')
+    win.loadFile('index.html')
+    win.loadFile(`file://${path.join(__dirname, "./dist/index.html")}`)
   }
 
   // 打开开发者工具
-//   win.webContents.openDevTools()
+  win.webContents.openDevTools()
 }
 app.whenReady().then(() => {
   createWindow()

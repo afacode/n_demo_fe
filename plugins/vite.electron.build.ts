@@ -24,15 +24,18 @@ export const ElectronBuildPlugin = ():Plugin => {
                         // output: "electron_dist"
                         app: path.resolve(process.cwd(), 'dist'),
                     },
-                    // files: ['**/*'],
+                    files: [
+                        "dist/**/*",
+                        "electron/**/*"
+                    ],
                     asar: true, //压缩包
                     appId:'top.afacode',
                     productName: 'n_demo_fe',
                     nsis: {
-                        oneClick: false,
-                        allowToChangeInstallationDirectory: true,
+                        oneClick: false, // 是否启用一键安装，此处设置为false，表示禁用一键安装；
+                        allowToChangeInstallationDirectory: true, // 允许用户在安装过程中选择安装目录；
 
-                    }
+                    },
                 }
             })
         },
