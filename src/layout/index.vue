@@ -1,0 +1,6 @@
+<script setup lang="ts">
+</script>
+
+<template>
+   <h1>layout</h1>
+</template>
