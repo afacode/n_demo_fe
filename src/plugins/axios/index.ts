@@ -29,14 +29,17 @@ server.interceptors.request.use(
 server.interceptors.response.use(
   (res: types.AxiosResponse) => {
     // blob返回报文不报错，直接下载
-    if ((res.data.code === '200' && res.data.successful) || (res.status === 200 && res.config.responseType === 'blob')) {
-      isRedirect = true;
-      if (res.config && res.config.url && server[res.config.url]) {
-        server[res.config.url].loading && server[res.config.url].loading.close();
-        server[res.config.url] = null;
-      }
+    // if ((res.data.code === '200' && res.data.successful) || (res.status === 200 && res.config.responseType === 'blob')) {
+    //   isRedirect = true;
+    //   if (res.config && res.config.url && server[res.config.url]) {
+    //     server[res.config.url].loading && server[res.config.url].loading.close();
+    //     server[res.config.url] = null;
+    //   }
 
-      return res.data;
+    //   return res.data;
+    // }
+    if (res.data.code == '200') {
+      return res.data.data;
     }
 
     return rejectData(res);

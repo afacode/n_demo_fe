@@ -48,7 +48,7 @@ export default defineConfig({
       '/api': {
         target: 'https://nest-api.buqiyuan.site/api/',
         changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, '')
+        rewrite: (path) => path.replace(/^\/api/, '')
       },
       '/ws-api': {
         target: 'wss://nest-api.buqiyuan.site',

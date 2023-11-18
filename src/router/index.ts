@@ -1,12 +1,14 @@
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 // import HomeView from '../views/HomeView.vue'
+import Layout from '@/layout/index.vue'
+import type { RouteRecordRaw } from 'vue-router';
 
-const routes = [
+const routes: Array<RouteRecordRaw>= [
   {
     path: '/',
-    name: 'Layout',
-    redirect: '/dashboard/welcome',
-    component: () => import(/* webpackChunkName: "layout" */ '@/layout/index.vue'),
+    name: 'layout',
+    // redirect: '/dashboard/welcome',
+    component: Layout,
     meta: {
       title: '首页',
     },

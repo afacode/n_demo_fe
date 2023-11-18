@@ -1,7 +1,7 @@
 import type { ServerConfig, ServerQueryConfig, NoTokenUrl, LanguageName } from './types';
 
 export const AXIOS_CONFIG: ServerConfig = {
-  baseURL: '/',
+  baseURL: '/api/admin/', // '/',
   // 请求头信息
   headers: {
     'Content-Type': 'application/json; charset=UTF-8',
