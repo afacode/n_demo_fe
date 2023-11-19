@@ -9,7 +9,8 @@
           <Breadcrumb>
             <template v-for="(routeItem, rotueIndex) in menus" :key="routeItem?.name">
               <Breadcrumb.Item>
-                <TitleI18n :title="routeItem?.meta?.title" />
+                {{ routeItem?.meta?.title }}
+                <!-- <TitleI18n :title="routeItem?.meta?.title" /> -->
                 <template v-if="routeItem?.children?.length" #overlay>
                   <Menu :selected-keys="getSelectKeys(rotueIndex)">
                     <template v-for="childItem in routeItem?.children" :key="childItem.name">
@@ -18,7 +19,8 @@
                         :key="childItem.name"
                         @click="clickMenuItem(childItem)"
                       >
-                        <TitleI18n :title="childItem.meta?.title" />
+                      {{ childItem.meta?.title }}
+                        <!-- <TitleI18n :title="childItem.meta?.title" /> -->
                       </Menu.Item>
                     </template>
                   </Menu>

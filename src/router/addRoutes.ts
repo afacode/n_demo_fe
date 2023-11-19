@@ -5,23 +5,13 @@ import type { RouteRecordRaw } from 'vue-router';
 import {baseRouter as common} from './index'
 import RouterView from '@/layout/routerView/index.vue';
 import router, { routes, outsideLayout } from '@/router';
+import NotFound from '@/views/error/404.vue';
+import {useRouteFiles} from './constant'
+import { asyncRoutes } from './asyncModules';
 // 需要放在所有路由之后的路由
 const endRoutes: RouteRecordRaw[] = [];
 // const endRoutes: RouteRecordRaw[] = [REDIRECT_ROUTE, errorRoute, notFound];
 // auto load
-
-const modulesFiles = import.meta.glob<Recordable>('../../views/**/*.vue');
-// console.log('modulesFiles', modulesFiles);
-
-// generate components map
-export const asyncRoutes = Object.entries(modulesFiles).reduce((routes, [url, importFn]) => {
-  if (!/\/(login|components)\//.test(url)) {
-    const path = url.replace('../../views/', '');
-    routes[path] = importFn;
-  }
-
-  return routes;
-}, {});
 
 export function filterAsyncRoute(
   routes: API.Menu[],
@@ -76,12 +66,13 @@ export function filterAsyncRoute(
           route.children = children;
           route.redirect = { name: children[0].name };
         } else {
+          route.component = ('目录类型菜单不是真实页面')
           // route.component = (
           //   <Result
           //     status="500"
           //     title={name}
           //     sub-title="目录类型菜单不是真实页面，请为当前目录添加页面级子菜单或更改当前菜单类型."
-          //   />
+          //   ></Result>
           // );
         }
         return route;
@@ -92,16 +83,18 @@ export function filterAsyncRoute(
             null
             // <IFramePage src={fullPath} />
           ) : (
-            asyncRoutes[viewPath] || null
+            asyncRoutes[viewPath] || NotFound
           );
+        console.log(viewPath, 'asyncRoutes[viewPath]')
         route.component = Component;
-
+          
         const perms = routes
           .filter((n) => n.parentId === item.id)
           .flatMap((n) => n.perms?.split(','));
+      
         if (route.meta && perms) {
           // 设置当前页面所拥有的权限
-          // route.meta.perms = perms // as PermissionType[];
+          route.meta.perms = perms // as PermissionType[];
         }
         return route;
       }
@@ -113,6 +106,8 @@ export function filterAsyncRoute(
 export const generatorDynamicRouter = (asyncMenus: API.Menu[]) => {
   try {
     // console.log('asyncMenus', asyncMenus);
+    console.log(useRouteFiles(), '99999999')
+    console.log(asyncRoutes, '8888888')
     const routeList = filterAsyncRoute(asyncMenus);
     const layout = routes.find((item) => item.name == 'Layout')!;
     // console.log(routeList, '根据后端返回的权限路由生成');

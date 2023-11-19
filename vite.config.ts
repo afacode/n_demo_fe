@@ -29,8 +29,8 @@ export default defineConfig({
       ],
     }),
   ],
-  base: './',
-  // base:  IS_DEV ? '/' : './',
+  // base: './',
+  base:  IS_DEV ? '/' : './',
   css: {
     modules: {},
     preprocessorOptions: {

@@ -1,17 +1,17 @@
 <script setup lang="ts">
-  import { watchEffect } from 'vue';
-  import { useRoute } from 'vue-router';
-  const route = useRoute();
+import { watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
+const route = useRoute();
 watchEffect(() => {
-    if (route.meta?.title) {
-      // 翻译网页标题
-      document.title = route.meta.title;
-    }
-  });
+  if (route.meta?.title) {
+    // 翻译网页标题
+    document.title = route.meta.title;
+  }
+});
 </script>
 
 <template>
   <router-view #="{ Component }">
-      <component :is="Component" />
-    </router-view>
+    <component :is="Component" />
+  </router-view>
 </template>

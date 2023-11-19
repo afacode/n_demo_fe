@@ -105,7 +105,6 @@ export function createRouterGuards(router: Router, whiteNameList: WhiteNameList)
   router.beforeEach(async (to, _, next) => {
     const userStore = useUserStore();
     const token = storage.getStorage(ACCESS_TOKEN_KEY, null);
-    console.log('----router-beforeEach----')
     if (token) {
       if (to.name === LOGIN_NAME) {
         next({ path: defaultRoutePath });

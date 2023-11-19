@@ -9,7 +9,6 @@
         :theme="getTheme"
         class="layout-sider"
       >
-        <!-- <Logo :collapsed="collapsed" /> -->
         <AsideMenu :collapsed="collapsed" :theme="getTheme" />
       </Layout.Sider>
       <Layout>
@@ -42,9 +41,8 @@ const layoutSettingStore = useLayoutSettingStore();
 const { layoutSetting } = storeToRefs(layoutSettingStore);
 const collapsed = ref<boolean>(false);
 // 自定义侧边栏菜单收缩和展开时的宽度
-const asiderWidth = computed(() => (collapsed.value ? 80 : 220));
-const getTheme = 'light';
-// const getTheme = computed(() => (layoutSetting.value.navTheme === 'light' ? 'light' : 'dark'));
+const asiderWidth = computed(() => (collapsed.value ? 80 : 220))
+const getTheme = computed(() => (layoutSetting.value.navTheme === 'light' ? 'light' : 'dark'));
 </script>
 
 <style lang="less" scoped>

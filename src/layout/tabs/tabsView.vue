@@ -12,7 +12,8 @@
         <template #tab>
           <Dropdown :trigger="['contextmenu']">
             <div style="display: inline-block">
-              <TitleI18n :title="pageItem.meta?.title" />
+              {{ pageItem.meta?.title }}
+              <!-- <TitleI18n :title="pageItem.meta?.title" /> -->
             </div>
             <template #overlay>
               <Menu style="user-select: none">
@@ -216,7 +217,6 @@ import { computed, unref, watch } from 'vue';
 
   // 关闭其他
   const closeOther = (route) => {
-    // tabsViewMutations.closeOtherTabs(route)
     tabsViewStore.closeOtherTabs(route);
     !isCurrentRoute(route) && router.replace(route.fullPath);
   };
@@ -224,7 +224,6 @@ import { computed, unref, watch } from 'vue';
   // 关闭全部
   const closeAll = () => {
     localStorage.removeItem('routes');
-    // tabsViewMutations.closeAllTabs()
     tabsViewStore.closeAllTabs();
     router.replace('/');
   };
@@ -288,7 +287,7 @@ import { computed, unref, watch } from 'vue';
     }
 
     .tabs-view-content {
-      /* height: calc(100vh - #{$header-height}); */
+    // height: calc(100vh - $header-height);
       height: calc(100vh - 110px);
       padding: 20px 14px 0;
       overflow: auto;

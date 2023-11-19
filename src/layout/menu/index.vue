@@ -21,7 +21,7 @@ import { Menu, type MenuTheme } from 'ant-design-vue';
 import MenuItem from './menuItem.vue';
 import { useUserStore } from '@/stores/modules/user';
 import { useLayoutSettingStore } from '@/stores/modules/layoutSetting';
-// import { LOGIN_NAME } from '@/router/constant';
+import { LOGIN_NAME } from '@/router/constant';
 
 const props = defineProps({
   collapsed: {
@@ -43,7 +43,7 @@ const state = reactive({
 });
 
 const menus = computed(() => userStore.menus);
-console.log('menus', menus.value[0]);
+console.log('menus菜单', menus.value);
 /** 侧边栏布局 */
 const isSideMenu = computed(() => layoutSettingStore.layoutSetting.layout === 'sidemenu');
 const getRouteByName = (name: string) => router.getRoutes().find((n) => n.name === name);
@@ -80,7 +80,7 @@ watch(
 watch(
   () => currentRoute.fullPath,
   () => {
-    // if (currentRoute.name === LOGIN_NAME || props.collapsed) return;
+    if (currentRoute.name === LOGIN_NAME || props.collapsed) return;
     state.openKeys = getOpenKeys();
     const meta = currentRoute.meta;
     if (meta?.activeMenu) {
