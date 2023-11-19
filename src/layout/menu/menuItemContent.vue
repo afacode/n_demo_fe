@@ -1,5 +1,5 @@
 <template>
-  <icon-font :type="item?.icon" />
+  <icon-font :type="item?.meta?.icon" />
   <!-- <TitleI18n :title="item?.meta?.title" /> -->
   <span> {{ item?.meta?.title }}</span>
 </template>
