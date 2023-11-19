@@ -1,7 +1,7 @@
 <template>
   <icon-font :type="item?.icon" />
   <!-- <TitleI18n :title="item?.meta?.title" /> -->
-  <span> {{ item.name }}</span>
+  <span> {{ item?.meta?.title }}</span>
 </template>
 
 <script lang="ts" setup>

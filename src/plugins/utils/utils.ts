@@ -4,6 +4,23 @@ import ClipboardJS from 'clipboard';
 import en from 'element-plus/dist/locale/en.mjs';
 import zh from 'element-plus/dist/locale/zh-cn.mjs';
 
+
+/**
+ * 将路径中重复的正斜杆替换成单个斜杆隔开的字符串
+ * @param path 要处理的路径
+ * @returns {string} 将/去重后的结果
+ */
+ export const uniqueSlash = (path: string) => path.replace(/(https?:\/)|(\/)+/g, '$1$2');
+ // Safari 不支持以下正则(反向否定查找) shit!
+ // export const uniqueSlash = (path: string) => path.replace(/(?<!:)\/{2,}/g, '/');
+
+ export function isUrl(path: string): boolean {
+  const reg =
+    /(((^https?:(?:\/\/)?)(?:[-;:&=+$,\w]+@)?[A-Za-z0-9.-]+(?::\d+)?|(?:www.|[-;:&=+$,\w]+@)[A-Za-z0-9.-]+)((?:\/[+~%/.\w-_]*)?\??(?:[-+=&;%@.\w_]*)#?(?:[\w]*))?)$/;
+  return reg.test(path);
+}
+
+ 
 // 是否是函数
 export function isFunction(val: unknown): val is Function {
   return typeof val === 'function' && val !== null && val !== undefined;

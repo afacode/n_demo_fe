@@ -32,10 +32,11 @@ export default defineConfig({
   base: './',
   // base:  IS_DEV ? '/' : './',
   css: {
+    modules: {},
     preprocessorOptions: {
-      scss: {
-        // additionalData: '@import "@/assets/themes/mixin.scss";'
-      },
+      // scss: {
+      //   // additionalData: '@import "@/assets/themes/mixin.scss";'
+      // },
       less: {
         javascriptEnabled: true,
         modifyVars: {},

@@ -20,7 +20,6 @@
           </template>
         </PageHeader>
         <Layout.Content class="layout-content">
-            Content
           <tabs-view />
         </Layout.Content>
         <PageFooter />

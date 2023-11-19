@@ -1,53 +1,30 @@
-import { login } from '@/api/login/login'
+import { login } from '@/api/login/index'
 import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum'
 import storage from '@/plugins/utils/storage'
 import { defineStore } from 'pinia'
+import type { RouteRecordRaw } from 'vue-router';
 import { getInfo, permmenu } from '@/api/account'
+import { generatorDynamicRouter } from '@/router/addRoutes'
+
+interface UserState {
+  token: string;
+  name: string;
+  avatar: string;
+  // like [ 'sys:user:add', 'sys:user:update' ]
+  perms: string[];
+  menus: RouteRecordRaw[];
+  userInfo: Partial<API.AdminUserInfo>;
+}
 
 export const useUserStore = defineStore({
   id: 'user',
 
-  state: () => ({
-    token: '',
+  state: (): UserState => ({
+    token: storage.getStorage(ACCESS_TOKEN_KEY, null),
     name: 'amdin',
     avatar: '',
     perms: [],
-    menus: [
-      {
-        createdAt: '2020-08-28 10:09:26',
-        updatedAt: '2023-10-12 18:37:13',
-        id: 1,
-        parentId: null,
-        name: '系统',
-        router: '/sys',
-        perms: null,
-        type: 0,
-        icon: 'icon-shezhi',
-        orderNum: 255,
-        viewPath: null,
-        keepalive: false,
-        isShow: true,
-        isExt: false,
-        openMode: 1
-      },
-      {
-        createdAt: '2023-11-17 11:25:22',
-        updatedAt: '2023-11-17 11:29:16',
-        id: 381,
-        parentId: null,
-        name: '应急预案',
-        router: '/emergency',
-        perms: null,
-        type: 0,
-        icon: 'yuanhuan-guanbi',
-        orderNum: 18,
-        viewPath: null,
-        keepalive: true,
-        isShow: true,
-        isExt: false,
-        openMode: 1
-      }
-    ],
+    menus: [],
     userInfo: {}
   }),
 
@@ -78,8 +55,9 @@ export const useUserStore = defineStore({
     },
     async login(params: LoginParams) {
       try {
-        const { data } = await login(params)
-        this.setToken(data.token)
+        const { token } = await login(params)
+        console.log(token,'==========')
+        this.setToken(token)
         return this.loginNext()
       } catch (error) {
         return Promise.reject(error)
@@ -95,7 +73,9 @@ export const useUserStore = defineStore({
         this.userInfo = userInfo
 
         // 生成路由...
-        
+        const generatorResult = await generatorDynamicRouter(menus);
+        this.menus = generatorResult.menus.filter((item) => !item.meta?.hideInMenu);
+        console.log(this.menus, '===')
         return { menus, perms, userInfo }
       } catch (error) {
         return Promise.reject(error)

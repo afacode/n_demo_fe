@@ -38,14 +38,14 @@ import { type PropType, computed } from 'vue';
   });
   const filterMenus = computed(() => {
     return [...props.menus]
-      .filter((n) => !n?.hideInMenu)
-      .sort((a, b) => (a?.orderNum || 0) - (b?.orderNum || 0));
+      .filter((n) => !n.meta?.hideInMenu)
+      .sort((a, b) => (a?.meta?.orderNum || 0) - (b?.meta?.orderNum || 0));
   });
 
   const isShowSubMenu = (menuItem: RouteRecordRaw) => {
     return (
-      menuItem?.type === 0 ||
-      (!Object.is(menuItem?.hideChildrenInMenu, true) && menuItem?.children?.length)
+      menuItem?.meta?.type === 0 ||
+      (!Object.is(menuItem?.meta?.hideChildrenInMenu, true) && menuItem?.children?.length)
     );
   };
 </script>

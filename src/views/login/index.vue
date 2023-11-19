@@ -34,21 +34,21 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { reactive } from 'vue';
-import { UserOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons-vue';
+// import { UserOutlined, LockOutlined, SafetyOutlined } from '@ant-design/icons-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { message, Modal } from 'ant-design-vue';
 import { useUserStore } from '@/stores/modules/user';
-import { getImageCaptcha } from '@/api/login';
+import { getImageCaptcha } from '@/api/login/index';
 import to from '@/plugins/utils/awaitTo';
 
 const state = reactive({
   loading: false,
   captcha: '',
   formInline: {
-    username: '',
-    password: '',
+    username: 'rootadmin',
+    password: '123456',
     verifyCode: '',
     captchaId: '',
   },
@@ -95,7 +95,7 @@ const handleSubmit = async () => {
 </script>
 
 
-<style lang="less" scoped>
+<style scoped lang="less">
 .login-box {
   display: flex;
   flex-direction: column;
@@ -103,7 +103,7 @@ const handleSubmit = async () => {
   width: 100vw;
   height: 100vh;
   padding-top: 240px;
-  //  background: url('@/assets/login.svg');
+  // background: url('@/assets/login.svg');
   background-size: 100%;
 
   .login-logo {
@@ -127,9 +127,5 @@ const handleSubmit = async () => {
       padding-right: 6px;
     }
   }
-}
-
-function to(arg0: any): [any]|PromiseLike<[any]> {
-  throw new Error('Function not implemented.');
 }
 </style>

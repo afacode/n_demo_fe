@@ -2,6 +2,8 @@ import axios from 'axios';
 import { ElLoading, ElMessage,ElMessageBox } from 'element-plus';
 import { getLanguage } from '@/plugins/utils/utils';
 import storage from '../utils/storage';
+import { ACCESS_TOKEN_KEY } from '@/enums/cacheEnum'
+
 import { AXIOS_CONFIG, NO_TOKEN_URL, QUERY_CONFIG, LANGUAGE_NAME } from './config';
 import * as types from './types.d';
 import type { Action } from 'element-plus'
@@ -55,7 +57,7 @@ function setConfig(config: types.ServerRequestConfig) {
   if (!config.headers) config.headers = {};
   // 设置token
   if (config && config.url && NO_TOKEN_URL.indexOf(config.url) === -1) {
-    config.headers['authorization'] = storage.getStorage('token');
+    config.headers['authorization'] = storage.getStorage(ACCESS_TOKEN_KEY);
   }
 
   // 设置语言
