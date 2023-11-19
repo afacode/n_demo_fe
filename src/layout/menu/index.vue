@@ -18,10 +18,10 @@
 import { reactive, computed, watch, type PropType } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Menu, type MenuTheme } from 'ant-design-vue';
-import MenuItem from './menu-item.vue';
-import { useUserStore } from '@/store/modules/user';
-import { useLayoutSettingStore } from '@/store/modules/layoutSetting';
-import { LOGIN_NAME } from '@/router/constant';
+import MenuItem from './menuItem.vue';
+import { useUserStore } from '@/stores/modules/user';
+import { useLayoutSettingStore } from '@/stores/modules/layoutSetting';
+// import { LOGIN_NAME } from '@/router/constant';
 
 const props = defineProps({
   collapsed: {
@@ -43,7 +43,7 @@ const state = reactive({
 });
 
 const menus = computed(() => userStore.menus);
-console.log('menus', menus.value);
+console.log('menus', menus.value[0]);
 /** 侧边栏布局 */
 const isSideMenu = computed(() => layoutSettingStore.layoutSetting.layout === 'sidemenu');
 const getRouteByName = (name: string) => router.getRoutes().find((n) => n.name === name);
@@ -80,7 +80,7 @@ watch(
 watch(
   () => currentRoute.fullPath,
   () => {
-    if (currentRoute.name === LOGIN_NAME || props.collapsed) return;
+    // if (currentRoute.name === LOGIN_NAME || props.collapsed) return;
     state.openKeys = getOpenKeys();
     const meta = currentRoute.meta;
     if (meta?.activeMenu) {
@@ -100,11 +100,12 @@ const clickMenuItem = ({ key }) => {
   if (key === currentRoute.name) return;
   const targetRoute = getRouteByName(key);
   const { isExt, openMode } = targetRoute?.meta || {};
-  if (isExt && openMode !== 2) {
-    window.open(key);
-  } else {
-    router.push({ name: key });
-  }
+  console.log(targetRoute, '===')
+  // if (isExt && openMode !== 2) {
+  //   window.open(key);
+  // } else {
+  //   router.push({ name: key });
+  // }
 };
 </script>
 

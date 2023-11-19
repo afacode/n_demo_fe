@@ -34,8 +34,16 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/assets/themes/mixin.scss";'
-      }
+        // additionalData: '@import "@/assets/themes/mixin.scss";'
+      },
+      less: {
+        javascriptEnabled: true,
+        modifyVars: {},
+        additionalData: `
+          @primary-color: #00b96b; 
+          @header-height: 60px; 
+        `,
+      },
     }
   },
   resolve: {
