@@ -9,7 +9,8 @@
           <Breadcrumb>
             <template v-for="(routeItem, rotueIndex) in menus" :key="routeItem?.name">
               <Breadcrumb.Item>
-                <TitleI18n :title="routeItem?.meta?.title" />
+                {{ routeItem?.meta?.title }}
+                <!-- <TitleI18n :title="routeItem?.meta?.title" /> -->
                 <template v-if="routeItem?.children?.length" #overlay>
                   <Menu :selected-keys="getSelectKeys(rotueIndex)">
                     <template v-for="childItem in routeItem?.children" :key="childItem.name">
@@ -18,7 +19,8 @@
                         :key="childItem.name"
                         @click="clickMenuItem(childItem)"
                       >
-                        <TitleI18n :title="childItem.meta?.title" />
+                      {{ childItem.meta?.title }}
+                        <!-- <TitleI18n :title="childItem.meta?.title" /> -->
                       </Menu.Item>
                     </template>
                   </Menu>
@@ -29,95 +31,87 @@
         </Space>
       </slot>
     </Space>
+
     <Space :size="20">
-      <Search />
-      <Tooltip :title="$t('layout.header.tooltipLock')" placement="bottom">
-        <LockOutlined @click="lockscreenStore.setLock(true)" />
+      <Tooltip :title="'锁定屏幕'" placement="bottom">
+        <LockOutlined />
       </Tooltip>
-      <FullScreen />
-      <LocalePicker />
       <Dropdown placement="bottomRight">
         <Avatar :src="userInfo.headImg" :alt="userInfo.name">{{ userInfo.name }}</Avatar>
         <template #overlay>
           <Menu>
             <Menu.Item @click="$router.push({ name: 'account-about' })">
-              {{ $t('routes.account.about') }}
+              关于
             </Menu.Item>
             <Menu.Item @click="$router.push({ name: 'account-settings' })">
-              {{ $t('routes.account.settings') }}
+              设置
             </Menu.Item>
             <Menu.Divider />
             <Menu.Item>
-              <div @click.prevent="doLogout">
-                <poweroff-outlined /> {{ $t('layout.header.dropdownItemLoginOut') }}
+              <div>
+                <poweroff-outlined />退出
               </div>
             </Menu.Item>
           </Menu>
         </template>
+      
       </Dropdown>
-      <ProjectSetting />
     </Space>
+
   </Layout.Header>
 </template>
 
-<script lang="tsx" setup>
-  import { computed, nextTick, type CSSProperties } from 'vue';
-  import { useRouter, useRoute, type RouteRecordRaw } from 'vue-router';
-  import {
-    QuestionCircleOutlined,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    PoweroffOutlined,
-    LockOutlined,
-  } from '@ant-design/icons-vue';
-  import {
-    Layout,
-    message,
-    Modal,
-    Dropdown,
-    Menu,
-    Space,
-    Breadcrumb,
-    Avatar,
-    Tooltip,
-    type MenuTheme,
-  } from 'ant-design-vue';
-  import { Search, FullScreen, ProjectSetting } from './components/';
-  import { LocalePicker } from '@/components/basic/locale-picker';
-  import { useUserStore } from '@/store/modules/user';
-  import { useKeepAliveStore } from '@/store/modules/keepAlive';
-  import { useLockscreenStore } from '@/store/modules/lockscreen';
-  import { LOGIN_NAME } from '@/router/constant';
-  import { TitleI18n } from '@/components/basic/title-i18n';
-  import { useLayoutSettingStore } from '@/store/modules/layoutSetting';
+<script lang="ts" setup>
+import { computed, nextTick } from 'vue';
+import type { CSSProperties} from 'vue'
+import { useRouter, useRoute, type RouteRecordRaw } from 'vue-router';
+import {
+  QuestionCircleOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  PoweroffOutlined,
+  LockOutlined,
+} from '@ant-design/icons-vue';
+import {
+  Layout,
+  message,
+  Modal,
+  Dropdown,
+  Menu,
+  Space,
+  Breadcrumb,
+  Avatar,
+  Tooltip,
+  type MenuTheme,
+} from 'ant-design-vue';
+import { useUserStore } from '@/stores/modules/user';
+import { useLayoutSettingStore } from '@/stores/modules/layoutSetting';
 
-  defineProps({
-    collapsed: {
-      type: Boolean,
-    },
-    theme: {
-      type: String as PropType<MenuTheme>,
-    },
-  });
-  const emit = defineEmits(['update:collapsed']);
-  const userStore = useUserStore();
-  const layoutSettingStore = useLayoutSettingStore();
-  const lockscreenStore = useLockscreenStore();
-  const keepAliveStore = useKeepAliveStore();
+defineProps({
+  collapsed: {
+    type: Boolean,
+  },
+  theme: {
+    type: String as PropType<MenuTheme>,
+  },
+});
 
-  const router = useRouter();
+const emit = defineEmits(['update:collapsed']);
+const layoutSettingStore = useLayoutSettingStore();
+const userStore = useUserStore();
+const userInfo = computed(() => userStore.userInfo);
+const router = useRouter();
   const route = useRoute();
-  const userInfo = computed(() => userStore.userInfo);
-  const headerStyle = computed<CSSProperties>(() => {
-    const { navTheme, layout } = layoutSettingStore.layoutSetting;
-    const isDark = navTheme === 'dark' && layout === 'topmenu';
-    return {
-      backgroundColor: navTheme === 'realDark' || isDark ? '' : 'rgba(255, 255, 255, 0.85)',
-      color: isDark ? 'rgba(255, 255, 255, 0.85)' : '',
-    };
-  });
+const headerStyle = computed<CSSProperties>(() => {
+  const { navTheme, layout } = layoutSettingStore.layoutSetting;
+  const isDark = navTheme === 'dark' && layout === 'topmenu';
+  return {
+    backgroundColor: navTheme === 'realDark' || isDark ? '' : 'rgba(255, 255, 255, 0.85)',
+    color: isDark ? 'rgba(255, 255, 255, 0.85)' : '',
+  };
+});
 
-  const menus = computed(() => {
+const menus = computed(() => {
     if (route.meta?.namePath) {
       let children = userStore.menus;
       const paths = route.meta?.namePath?.map((item) => {
@@ -139,7 +133,7 @@
     return route.matched;
   });
 
-  const getSelectKeys = (rotueIndex: number) => {
+const getSelectKeys = (rotueIndex: number) => {
     return [menus.value[rotueIndex + 1]?.name] as string[];
   };
 
@@ -165,7 +159,6 @@
     return route;
   };
   const getRouteByName = (name: string) => router.getRoutes().find((n) => n.name === name);
-
   // 点击菜单
   const clickMenuItem = (menuItem: RouteRecordRaw) => {
     const lastChild = findLastChild(menuItem);
@@ -180,47 +173,22 @@
     }
   };
 
-  // 退出登录
-  const doLogout = () => {
-    Modal.confirm({
-      title: '您确定要退出登录吗？',
-      icon: <QuestionCircleOutlined />,
-      centered: true,
-      onOk: async () => {
-        // 如果不是rootadmin，则退出登录
-        if (userStore.userInfo.phone !== '13553550634') {
-          // logout({})
-          await userStore.logout();
-        }
-        keepAliveStore.clear();
-        // 移除标签页
-        localStorage.clear();
-        message.success('成功退出登录');
-        await nextTick();
-        router.replace({
-          name: LOGIN_NAME,
-          query: {
-            redirect: route.fullPath,
-          },
-        });
-      },
-    });
-  };
+
 </script>
 
 <style lang="less" scoped>
-  .layout-header {
-    display: flex;
-    position: sticky;
-    z-index: 10;
-    top: 0;
-    align-items: center;
-    justify-content: space-between;
-    height: @header-height;
-    padding: 0 20px;
+.layout-header {
+  display: flex;
+  position: sticky;
+  z-index: 10;
+  top: 0;
+  align-items: center;
+  justify-content: space-between;
+  height: @header-height;
+  padding: 0 20px;
 
-    * {
-      cursor: pointer;
-    }
+  * {
+    cursor: pointer;
   }
+}
 </style>
