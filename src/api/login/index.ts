@@ -1,13 +1,5 @@
-import { Get, Post } from '@/plugins/axios/index'
-/**
- * @description 获取验证码
- */
-export function getImageCaptcha(data?: API.CaptchaParams) {
-  return Get({
-    url: 'captcha/img',
-    data
-  })
-}
+import type { BaseResponse } from '@/utils/request';
+import { request } from '@/utils/request';
 
 /**
  * @description 登录
@@ -15,8 +7,24 @@ export function getImageCaptcha(data?: API.CaptchaParams) {
  * @returns
  */
 export function login(data: API.LoginParams) {
-  return Post({
-    url: 'login',
-    data
-  })
+  return request<BaseResponse<API.LoginResult>>(
+    {
+      url: 'login',
+      method: 'post',
+      data,
+    },
+    {
+      isGetDataDirectly: false,
+    },
+  );
+}
+/**
+ * @description 获取验证码
+ */
+export function getImageCaptcha(params?: API.CaptchaParams) {
+  return request<API.CaptchaResult>({
+    url: 'captcha/img',
+    method: 'get',
+    params,
+  });
 }
