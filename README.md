@@ -1,6 +1,34 @@
-# n_demo_fe
+# nest_vue_electron
 
 Vue 3 Vite Electron
+项目是基于[vue3-antdv-admin](https://github.com/buqiyuan/vue3-antdv-admin.git)修改
+
+UI: [Ant Design Vue](https://www.antdv.com/components/overview)
+
+## Setup & Compile
+```sh
+pnpm install
+```
+
+- run web
+```sh
+pnpm run dev:web
+```
+
+- build web
+```sh
+pnpm run build  // dist
+```
+
+- run electron
+```sh
+pnpm run dev
+```
+
+- build electron
+```sh
+pnpm run build  // release
+```
 
 ## Recommended IDE Setup
 
@@ -20,41 +48,3 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
 ## Customize configuration
 
 See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-pnpm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-pnpm dev
-```
-
-### Type-Check, Compile and Minify for Production
-
-```sh
-pnpm build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-pnpm lint
-```
-
-### 一些配置
-```
-concurrently：用于同时运行多个命令；
-cross-env：用于设置环境变量；
-electron-builder：用于构建和打包 Electron 应用程序；
-wait-on：用于满足指定条件后再执行命令；
-```
