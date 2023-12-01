@@ -9,13 +9,13 @@
       :theme="getTheme"
       class="layout-sider"
     >
-      <Logo :collapsed="collapsed" />
+      <!-- <Logo :collapsed="collapsed" /> -->
       <AsideMenu :collapsed="collapsed" :theme="getTheme" />
     </Layout.Sider>
     <Layout>
       <PageHeader v-model:collapsed="collapsed" :theme="getTheme">
         <template v-if="layoutSetting.layout === 'topmenu'" #default>
-          <Logo :collapsed="collapsed" />
+          <!-- <Logo :collapsed="collapsed" /> -->
           <AsideMenu :collapsed="collapsed" :theme="getTheme" />
         </template>
       </PageHeader>

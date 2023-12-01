@@ -31,11 +31,12 @@
     </Space>
     <Space :size="20">
       <Search />
-      <Tooltip :title="$t('layout.header.tooltipLock')" placement="bottom">
+      <!-- <Tooltip :title="$t('layout.header.tooltipLock')" placement="bottom">
         <LockOutlined @click="lockscreenStore.setLock(true)" />
-      </Tooltip>
+      </Tooltip> -->
       <FullScreen />
       <LocalePicker />
+      <ProjectSetting />
       <Dropdown placement="bottomRight">
         <Avatar :src="userInfo.headImg" :alt="userInfo.name">{{ userInfo.name }}</Avatar>
         <template #overlay>
@@ -55,7 +56,6 @@
           </Menu>
         </template>
       </Dropdown>
-      <ProjectSetting />
     </Space>
   </Layout.Header>
 </template>
