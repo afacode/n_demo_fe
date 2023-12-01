@@ -22,7 +22,11 @@ export function filterAsyncRoute(
   lastNamePath: string[] = [],
 ): RouteRecordRaw[] {
   return routes
-    .filter((item) => item.type !== 2 && item.isShow && item.parentId == parentRoute?.id)
+    .filter((item) => {
+      // 临时过滤URL
+      const filteURL = ['/project', '/netdisk', '/document']; 
+      return item.type !== 2 && item.isShow && item.parentId == parentRoute?.id && !filteURL.includes(item.router)
+    })
     .map((item) => {
       const { router, viewPath, name, icon, orderNum, keepalive, isExt, openMode } = item;
       let fullPath = '';

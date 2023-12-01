@@ -3,4 +3,5 @@ import demos from './demos';
 import externaLink from './externa-link';
 import account from './account';
 
-export default [...dashboard, ...demos, ...externaLink, ...account];
+export default [...dashboard, ...account];
+// export default [...dashboard, ...demos, ...externaLink, ...account];
