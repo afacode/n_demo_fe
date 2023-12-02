@@ -57,8 +57,8 @@ app.on('window-all-closed', () => {
 })
 
 async function registerGloablShortcut(shortcut: string) : Promise<boolean>{
-  const ret = globalShortcut.register('CommandOrControl+X', () => {
-    console.log('CommandOrControl+X is pressed')
+  const ret = globalShortcut.register(shortcut, () => {
+    console.log(`${shortcut} is pressed`)
   })
 
   if (!ret) {
@@ -66,6 +66,6 @@ async function registerGloablShortcut(shortcut: string) : Promise<boolean>{
   }
 
   // 检查快捷键是否注册成功
-  console.log(globalShortcut.isRegistered('CommandOrControl+X'))
-  return globalShortcut.isRegistered('CommandOrControl+X')
+  console.log(globalShortcut.isRegistered(shortcut))
+  return globalShortcut.isRegistered(shortcut)
 }
