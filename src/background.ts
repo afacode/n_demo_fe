@@ -1,5 +1,5 @@
 // main process
-import { app, BrowserWindow, contentTracing } from 'electron'
+import { app, BrowserWindow, contentTracing, globalShortcut } from 'electron'
 
 function createWindow() {
   // 创建浏览器窗口
@@ -44,6 +44,8 @@ app.whenReady().then(() => {
   // app.hide() isHidden()
   // app.show()
 
+  registerGloablShortcut('CommandOrControl+X')
+
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
@@ -53,3 +55,17 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 })
+
+async function registerGloablShortcut(shortcut: string) : Promise<boolean>{
+  const ret = globalShortcut.register('CommandOrControl+X', () => {
+    console.log('CommandOrControl+X is pressed')
+  })
+
+  if (!ret) {
+    console.log('registration failed')
+  }
+
+  // 检查快捷键是否注册成功
+  console.log(globalShortcut.isRegistered('CommandOrControl+X'))
+  return globalShortcut.isRegistered('CommandOrControl+X')
+}
