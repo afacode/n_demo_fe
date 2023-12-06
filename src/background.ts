@@ -1,7 +1,9 @@
 // main process
-import { app, BrowserWindow, contentTracing, globalShortcut } from 'electron'
+import { app, BrowserWindow, contentTracing, globalShortcut, type BrowserWindowConstructorOptions } from 'electron'
 import { showNotification } from './native/main/notification'
+import { createApplicationMenu, createMouseRigthMenu } from './native/main/menu'
 
+let mainWindow:any = null
 function createWindow() {
   // 创建浏览器窗口
   const win = new BrowserWindow({
@@ -16,6 +18,7 @@ function createWindow() {
     // show: false,
     // frame: false, // 无边框窗口
   })
+  mainWindow = win
 
   // 加载 Vue 应用的 index.html 文件
   if (process.argv[2]) {
@@ -44,6 +47,9 @@ app.whenReady().then(() => {
   // app.isReady()
   // app.hide() isHidden()
   // app.show()
+
+  createApplicationMenu()
+  createMouseRigthMenu(mainWindow)
 
   registerGloablShortcut('CommandOrControl+X')
 
