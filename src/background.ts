@@ -1,15 +1,15 @@
 // main process
-import { app, BrowserWindow, contentTracing, globalShortcut } from 'electron'
+import { app, BrowserWindow, contentTracing, globalShortcut, screen } from 'electron'
 import { showNotification } from './native/main/notification'
 import { createApplicationMenu, createMouseRigthMenu } from './native/main/menu'
 import { createTray } from './native/main/tray'
 
 let mainWindow:any = null
-function createWindow() {
+function createWindow(width: number = 800, height:number=600) {
   // 创建浏览器窗口
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     webPreferences: {
       nodeIntegration: true, // 渲染进程可使用node api
       contextIsolation: false, // 关闭渲染进程的沙箱
@@ -43,7 +43,9 @@ app.whenReady().then(() => {
     console.log('追踪数据记录到： ' + path)
   })()
 
-  createWindow()
+  const { width, height } = screen.getPrimaryDisplay().workAreaSize
+
+  createWindow(width-200, height-200)
 
   // app.isReady()
   // app.hide() isHidden()
