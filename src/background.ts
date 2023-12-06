@@ -1,5 +1,6 @@
 // main process
 import { app, BrowserWindow, contentTracing, globalShortcut } from 'electron'
+import { showNotification } from './native/main/notification'
 
 function createWindow() {
   // 创建浏览器窗口
@@ -49,6 +50,8 @@ app.whenReady().then(() => {
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
   })
+}).then(() => {
+  showNotification({title: '启动', body: '应用已经启动起来了'})
 })
 
 // 当所有的窗口都被关闭时触发
