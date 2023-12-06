@@ -113,7 +113,7 @@ export function createMouseRigthMenu(window: any) {
       role: 'paste'
     })
   )
-  window.webContents.on('context-menu', (e: Event, params: ContextMenuParams) => {
+  window.webContents.on('context-menu', (_: Event, params: ContextMenuParams) => {
     menu.popup({window: window, x: params.x, y: params.y})
   })
 

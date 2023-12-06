@@ -1,7 +1,8 @@
 // main process
-import { app, BrowserWindow, contentTracing, globalShortcut, type BrowserWindowConstructorOptions } from 'electron'
+import { app, BrowserWindow, contentTracing, globalShortcut } from 'electron'
 import { showNotification } from './native/main/notification'
 import { createApplicationMenu, createMouseRigthMenu } from './native/main/menu'
+import { createTray } from './native/main/tray'
 
 let mainWindow:any = null
 function createWindow() {
@@ -50,6 +51,7 @@ app.whenReady().then(() => {
 
   createApplicationMenu()
   createMouseRigthMenu(mainWindow)
+  createTray(mainWindow)
 
   registerGloablShortcut('CommandOrControl+X')
 
